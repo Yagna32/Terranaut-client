@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import './css/StreetView.css'
-import { PositionContext } from "./Context/PositionContext";
+// import { PositionContext } from "./Context/PositionContext";
 
 const StreetView: React.FC = () => {
   const mapRef = useRef<HTMLDivElement | null>(null);
@@ -8,7 +8,7 @@ const StreetView: React.FC = () => {
   const mapInstance = useRef<google.maps.Map | null>(null); // Store map instance
   const [mapZoom, setMapZoom] = useState(false);
   const [marker, setMarker] = useState<google.maps.Marker | null>(null);
-  const {position, generateRandomLocation} = useContext(PositionContext)
+  // const {position, generateRandomLocation} = useContext(PositionContext)
   const mapZoomHandler = () => {
     setMapZoom(!mapZoom);
   };
@@ -57,12 +57,12 @@ const StreetView: React.FC = () => {
     if (!mapInstance.current || !mapZoom) return;
 
     // Add the `dblclick` event listener
-    const dblClickListener = google.maps.event.addListener(mapInstance.current, 'click', (event) => {
-      console.log(event);
+    const dblClickListener = google.maps.event.addListener(mapInstance.current, 'click', (event:google.maps.MapMouseEvent) => {
+      console.log(typeof event);
 
       // Get the latitude and longitude of the clicked location
-      const lat = event.latLng.lat();
-      const lng = event.latLng.lng();
+      const lat = event.latLng?.lat();
+      const lng = event.latLng?.lng();
 
       // Remove the existing marker if any
       if (marker) {

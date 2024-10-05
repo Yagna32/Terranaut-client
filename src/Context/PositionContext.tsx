@@ -1,8 +1,12 @@
-import { createContext, useState } from "react";
+import { createContext, ReactNode, useState } from "react";
 
-export const PositionContext = createContext(null)
+export const PositionContext = createContext({})
 
-const PositionContextProvider = (props) => {
+interface Props {
+  children: ReactNode;
+}
+
+const PositionContextProvider = (props:Props) => {
     const [position, setPosition] = useState({ lat: 42.345573, lng: -71.098326 })
 
     const generateRandomLocation = () => {
